@@ -49,21 +49,36 @@ def randomized_dfs_tour(graph, start):
 
 
 def path_to_solution(path):
-    solution = participants
+    solution = {}
     for idx in range(len(path) - 1):
-        solution[path[idx]]['links'] = participants[path[idx + 1]]['name']
+        solution[participants[path[idx]]['name']] = participants[path[idx + 1]]['name']
     return solution
 
 
-G = nx.DiGraph()
-edges = edges_from_participants(participants)
-G.add_edges_from(edges)
 
-path = randomized_dfs_tour(G, start=0)
+def secret_santa(participants, retry=0):
+    if retry == MAX_RETRY:
+        return None
+    G = nx.DiGraph()
+    edges = edges_from_participants(participants)
+    G.add_edges_from(edges)
 
-if len(path) - 1 == len(participants):
-    solution = path_to_solution(path)
-    print("solution:")
-    pprint(solution)
-else:
-    print("no solution found using current seed, please rerun the script")
+    path = randomized_dfs_tour(G, start=0)
+
+    if len(path) - 1 == len(participants):
+        assignments = path_to_solution(path)
+        return assignments
+    else:
+        return secret_santa(participants, retry + 1)
+
+
+def main():
+    assignments = secret_santa(participants)
+    for giver, recipient in assignments.items():
+        print(f"{giver} will gift to {recipient}")
+    pass
+
+
+if __name__ == '__main__':
+    main()
+    pass
