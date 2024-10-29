@@ -1,4 +1,5 @@
 from participants import participants
+from secret_santa_solver import secret_santa
 
 
 def main():
