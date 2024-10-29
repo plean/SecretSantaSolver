@@ -1,0 +1,4 @@
+networkx==2.5.1
+networkx==2.4
+numpy==1.23.5
+numpy==1.21.5
