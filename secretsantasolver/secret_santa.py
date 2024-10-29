@@ -2,8 +2,9 @@ import networkx as nx
 import numpy as np
 import random
 
+MAX_RETRY = 10
 
-def edges_from_participants(particpants):
+def _edges_from_participants(particpants):
     len_participants = len(participants)
     edges = []
     for i, participant in enumerate(participants):
@@ -20,11 +21,11 @@ def edges_from_participants(particpants):
     return edges
 
 
-def randomized_dfs_tour(graph, start):
+def _randomized_dfs_tour(graph, start):
     visited = set()
     path = []
     
-    def dfs(node):
+    def _dfs(node):
         visited.add(node)
         path.append(node)
         
@@ -34,9 +35,9 @@ def randomized_dfs_tour(graph, start):
         
         for neighbor in neighbors:
             if neighbor not in visited:
-                dfs(neighbor)
+                _dfs(neighbor)
     
-    dfs(start)
+    _dfs(start)
     # Only return to start if a directed edge exists from the last node to the start
     if path and graph.has_edge(path[-1], start):
         path.append(start)  # Close the cycle if possible
@@ -44,11 +45,11 @@ def randomized_dfs_tour(graph, start):
     return path
 
 
-def path_to_solution(path):
-    solution = {}
+def _path_to_solution(path):
+    assignments = {}
     for idx in range(len(path) - 1):
-        solution[participants[path[idx]]['name']] = participants[path[idx + 1]]['name']
-    return solution
+        assignments[participants[path[idx]]['name']] = participants[path[idx + 1]]['name']
+    return assignments
 
 
 
@@ -67,15 +68,3 @@ def secret_santa(participants, retry=0):
     else:
         return secret_santa(participants, retry + 1)
 
-
-def main():
-    from participants import participants
-    assignments = secret_santa(participants)
-    for giver, recipient in assignments.items():
-        print(f"{giver} will gift to {recipient}")
-    pass
-
-
-if __name__ == '__main__':
-    main()
-    pass
