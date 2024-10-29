@@ -4,9 +4,6 @@ import numpy as np
 import random
 
 
-from participants import participants
-
-
 def edges_from_participants(particpants):
     len_participants = len(participants)
     edges = []
@@ -73,6 +70,7 @@ def secret_santa(participants, retry=0):
 
 
 def main():
+    from participants import participants
     assignments = secret_santa(participants)
     for giver, recipient in assignments.items():
         print(f"{giver} will gift to {recipient}")
