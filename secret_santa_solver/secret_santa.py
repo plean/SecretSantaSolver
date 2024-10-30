@@ -4,7 +4,7 @@ import random
 
 MAX_RETRY = 10
 
-def _edges_from_participants(particpants):
+def _edges_from_participants(participants):
     len_participants = len(participants)
     edges = []
     for i, participant in enumerate(participants):
@@ -45,7 +45,7 @@ def _randomized_dfs_tour(graph, start):
     return path
 
 
-def _path_to_solution(path):
+def _path_to_solution(path, participants):
     assignments = {}
     for idx in range(len(path) - 1):
         assignments[participants[path[idx]]['name']] = participants[path[idx + 1]]['name']
@@ -66,13 +66,13 @@ def secret_santa(participants, retry=0):
     if retry == MAX_RETRY:
         return None
     G = nx.DiGraph()
-    edges = edges_from_participants(participants)
+    edges = _edges_from_participants(participants)
     G.add_edges_from(edges)
 
-    path = randomized_dfs_tour(G, start=0)
+    path = _randomized_dfs_tour(G, start=0)
 
     if len(path) - 1 == len(participants):
-        assignments = path_to_solution(path)
+        assignments = _path_to_solution(path, participants)
         return assignments
     else:
         return secret_santa(participants, retry + 1)
