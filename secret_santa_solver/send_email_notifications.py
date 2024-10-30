@@ -2,12 +2,13 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def send_email_notifications(assignments, smtp_server, smtp_port, email_user, email_password):
+def send_email_notifications(assignments, participants, smtp_server, smtp_port, email_user, email_password):
     """
     Sends email notifications to each participant in the Secret Santa.
     
     Parameters:
         assignments (dict): A dictionary with each participant's name as the key and their assigned recipient's name as the value.
+        participants (list): A list of dictionaries, each containing name, email, and links.
         smtp_server (str): SMTP server address.
         smtp_port (int): SMTP server port (e.g., 587 for Gmail).
         email_user (str): SMTP username/email (sender's email).
@@ -18,7 +19,7 @@ def send_email_notifications(assignments, smtp_server, smtp_port, email_user, em
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls()  # Secure the connection
         server.login(email_user, email_password)
-        
+
         for giver, recipient in assignments.items():
             # Get the giver's email and recipient's name
             giver_email = next(p['email'] for p in participants if p['name'] == giver)
