@@ -13,6 +13,7 @@ setuptools.setup(
     description="The Secret Santa Solver is a Python tool designed to assign Secret Santa gift pairs for a group of participants. Each participant has the option to specify a list of people they feel comfortable gifting to, allowing for a personalized and comfortable gift exchange experience. If no preferences are specified, the participant can be assigned to any other participant.",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    url="https://github.com/plean/SecretSantaSolver",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
