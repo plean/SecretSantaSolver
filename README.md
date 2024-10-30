@@ -107,7 +107,7 @@ This function takes a list of participants and assigns each participant a recipi
 - **Parameters**: 
   - `participants` (list): A list of dictionaries, each containing `name`, `email`, and `links`.
 - **Returns**:
-  - `dict`: A dictionary with each participant's name as the key and their assigned recipient's name as the value. If `None`, that mean the solver haven't found a solution after trying `MAX_RETRY`.
+  - `dict`: A dictionary with each participant's name as the key and their assigned recipient's name as the value. If `None`, that mean the solver haven't found a solution after trying `MAX_RETRY` times.
 
 ### `send_email_notifications(assignments, smtp_server, smtp_port, email_user, email_password)`
 

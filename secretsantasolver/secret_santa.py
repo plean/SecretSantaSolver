@@ -54,6 +54,15 @@ def _path_to_solution(path):
 
 
 def secret_santa(participants, retry=0):
+    """
+    This function takes a list of participants and assigns each participant a recipient they feel comfortable gifting to, if possible.    
+    
+    Parameters:
+        participants (list): A list of dictionaries, each containing name, email, and links.
+    Returns:
+        dict: A dictionary with each participant's name as the key and their assigned recipient's name as the value. If None, that mean the solver haven't found a solution after trying MAX_RETRY times.
+    """
+
     if retry == MAX_RETRY:
         return None
     G = nx.DiGraph()
