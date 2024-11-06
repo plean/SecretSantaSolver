@@ -94,7 +94,7 @@ To notify participants of their assigned recipients, use the `send_email_notific
 ```python
 from secret_santa_solver import send_email_notifications
 
-send_email_notifications(assignments, smtp_server='smtp.example.com', smtp_port=587,
+send_email_notifications(assignments, participants, smtp_server='smtp.example.com', smtp_port=587,
                          email_user='your_email@example.com', email_password='your_password')
 ```
 
@@ -105,7 +105,7 @@ send_email_notifications(assignments, smtp_server='smtp.example.com', smtp_port=
 This function takes a list of participants and assigns each participant a recipient they feel comfortable gifting to, if possible.
 
 - **Parameters**: 
-  - `participants` (list): A list of dictionaries, each containing `name`, `email`, and `links`.
+  - `participants` (list): A list of dictionaries, each containing `name`, `links`. 
 - **Returns**:
   - `dict`: A dictionary with each participant's name as the key and their assigned recipient's name as the value. If `None`, that mean the solver haven't found a solution after trying `MAX_RETRY` times.
 
@@ -115,6 +115,7 @@ Optionally send email notifications to each participant about their Secret Santa
 
 - **Parameters**:
   - `assignments` (dict): Dictionary output from `secret_santa` containing givers and recipients.
+  - `participants` (list): A list of dictionaries, each containing `name`, `email`.
   - `smtp_server` (str): SMTP server address.
   - `smtp_port` (int): SMTP server port.
   - `email_user` (str): SMTP username/email.
